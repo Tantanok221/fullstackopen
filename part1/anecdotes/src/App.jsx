@@ -27,7 +27,7 @@ const App = () => {
     }
   }
 
-
+  
   return (
     <div>
       <h1>Anecdotes of the day</h1>
