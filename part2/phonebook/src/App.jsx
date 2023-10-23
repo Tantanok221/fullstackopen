@@ -4,7 +4,6 @@ const Filter = ({data}) => {
   function filter(event){
     let filter = document.querySelector("#FILTER").value
     let newArr = data.map(val => val.name +" " +val.number).filter(val => val.includes(filter))
-    console.log(newArr)
     document.querySelector("#manipulate").innerHTML = ""
     newArr.forEach(val => {document.querySelector("#manipulate").insertAdjacentHTML('beforeend',`<p>${val}</p>`)
   })}
@@ -18,11 +17,13 @@ const Form = ({data,move}) => {
   function submit(event){
     let name = document.querySelector("#NAME").value
     let number = document.querySelector("#NUMBER").value
+    let id = data.length + 1
     event.preventDefault()
   
     
     if(!data.map(person => person.name).includes(name)) {
-      let newPerson = [...data, {name: name, number: number}]
+      let newPerson = [...data, {name: name, number: number, id: id }]
+      
       move(newPerson)
       
       }
@@ -45,13 +46,15 @@ const Form = ({data,move}) => {
 }
 
 const Person = ({data}) => {
-  return(<><div id="manipulate">{data.map(val => <p>{val.name} {val.number}</p>)}</div></>)
+  return(<><div id="manipulate">{data.map(val => <p key={val.id}>{val.name} {val.number}</p>)}</div></>)
 }
 
-const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: "011111" }
-  ]) 
+
+
+const App = ({data}) => {
+  
+  console.log(data)
+  const [persons, setPersons] = useState(data) 
   
   
   
